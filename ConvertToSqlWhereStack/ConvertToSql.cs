@@ -13,16 +13,15 @@ namespace ConvertToSqlWhereStack
 
         internal string Result(string input)
         {
-            var inputPostfix = new List<string>();
-            ToPostFix(new Queue<char>(input.ToCharArray()), inputPostfix);
-            var result = PostfixToResult(new Queue<string>(inputPostfix));
-            return result;
+            var result = new List<string>();
+            Convert(new Queue<char>(input.ToCharArray()), result);
+            return string.Join(" ",result);
         }
 
         /// <summary>
         /// 對輸入資料的分組處理，讓轉後序動作更簡單
         /// </summary>
-        private void ToPostFix(Queue<char> input, List<string> result, int level = 0, char? process = null)
+        private void Convert(Queue<char> input, List<string> result, int level = 0, char? process = null)
         {
             var resultItem = string.Empty;
 
@@ -49,22 +48,38 @@ namespace ConvertToSqlWhereStack
 
                 var next = input.Peek();
                 if (next == ')') 
-                {   // 先放值再放 operand ，就會變成後置
-                    if (resultItem != string.Empty) result.Add(resultItem);
+                {
+                    
                     switch (process)
                     {
                         case '(':
                             input.Dequeue();
+                            if (resultItem != string.Empty) result.Add(resultItem);
+                            result.Add(")");
                             break;
-                        case '!':
-                            var lastEqualsIndex = result.FindLastIndex( r => r == "equals");
-                            result[lastEqualsIndex] = "not equals";
+                        case '!':  // 不等於的處理方式:用修改上一次的等於
+                            result[result.Count - 2] = "!=";
+                            if (resultItem != string.Empty) result.Add(resultItem);
                             break;
                         case '=':
-                            result.Add("equals");
+                            input.Dequeue();
+
+                            var lastResult = result[result.Count-1];
+                            if (lastResult[0] == '\'' && lastResult[lastResult.Length-1] == '\'')
+                            {   // 如果上一個項目是字串，插入 = 
+                                result.Insert(result.Count-1,"=");
+                            }
+                            else
+                            {   // 如果上一個項目是不是字串 
+                                result.Add("=");
+                                if (resultItem != string.Empty) result.Add(resultItem);
+                            }
+
                             break;
                         case '&':
-                            result.Add("and");
+                            input.Dequeue();
+                            if (resultItem != string.Empty) result.Add(resultItem);
+                            if (level > 1) result.Add(")");
                             break;
                     }                   
                     return;
@@ -74,24 +89,25 @@ namespace ConvertToSqlWhereStack
 
                 if (next == '\"')
                 {
-                    input.Dequeue();    // 把第一個 " 先刪掉，之後會在 Recursive 時以 單引號 的方式加入
-                    ToPostFix(input, result, level + 1, process: '\"');
+                    input.Dequeue();    // 把 " 先刪掉
+                    Convert(input, result, level + 1, process: '\"');
                     resultItem = string.Empty;
                     continue;
                 }
 
-                if (next == ',')
+                if (next == ',' && process == '&')
                 {
-                    input.Dequeue();    // 把第一個 " 先刪掉，之後會在 Recursive 時以 單引號 的方式加入
-                    ToPostFix(input, result, level + 1, process: '\"');
+                    input.Dequeue();    // 把 , 先刪掉
+                    //result.Add(resultItem);
+                    result.Add("and");
                     resultItem = string.Empty;
                     continue;
                 }
 
                 if (next == ':')
                 {
+                    input.Dequeue();    // 把 : 先刪掉
                     result.Add(resultItem);
-                    input.Dequeue();
                     resultItem = string.Empty;
                     continue;
                 }
@@ -102,54 +118,26 @@ namespace ConvertToSqlWhereStack
 
                 if (resultItem == "and(")
                 {
-                    ToPostFix(input, result, level + 1, process: '&');
+                    if(level != 0) result.Add("(");
+                    Convert(input, result, level + 1, process: '&');
                     resultItem = string.Empty;
                     continue;
                 }
 
                 if (resultItem == "equals(")
                 {                   
-                    ToPostFix(input, result, level + 1, process: '=');
+                    Convert(input, result, level + 1, process: '=');
                     resultItem = string.Empty;
                     continue;
                 }
 
                 if (resultItem == "not(")
                 {
-                    ToPostFix(input, result, level + 1, process: '!');
+                    Convert(input, result, level + 1, process: '!');
                     resultItem = string.Empty;
                     continue;
                 }
             }
-        }
-
-        private string PostfixToResult(Queue<string> inputPostfix)
-        {
-            var fields = new Stack<string>();
-            StringBuilder result = new StringBuilder();
-            while (inputPostfix.Count > 0)
-            {
-                var operand = string.Empty;
-
-                var next = inputPostfix.Peek();
-                switch (next)
-                {
-                    case "equals":
-                        operand = "=";
-                        AddEqual(fields, result, operand);
-                        inputPostfix.Dequeue();
-                        break;
-                    case "not equals":
-                        operand = "!=";
-                        AddEqual(fields, result, operand);
-                        inputPostfix.Dequeue();
-                        break;
-                    default:
-                        fields.Push(inputPostfix.Dequeue());
-                        break;
-                }
-            }
-            return result.ToString();
         }
 
         private static void AddEqual(Stack<string> fields, StringBuilder result, string operand)
