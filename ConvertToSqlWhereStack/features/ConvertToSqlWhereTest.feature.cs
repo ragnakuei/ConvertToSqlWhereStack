@@ -268,6 +268,25 @@ this.ScenarioSetup(scenarioInfo);
         {
             this.轉換("(N.NE. or. S.EQ.) and. (S.NQ. or. N.EQ.)", "and(or(not(b:equals(2)),c:equals(\"3\")),or(not(d:equals(\"4\")),a:equals(1)))", "( b != 2 or c = \'3\' ) and ( d != \'4\' or a = 1 )", ((string[])(null)));
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. or. N.NQ. or. S.EQ ) and. (S.EQ. and. N.NQ. and. S.NQ. ) and. ( S.NQ. or. N" +
+            ".EQ. or. S.EQ.)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. or. N.NQ. or. S.EQ ) and. (S.EQ. and. N.NQ. and. S.NQ. ) and. ( S.NQ. or. N" +
+            ".EQ. or. S.EQ.)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(or(a:equals(1),not(b:equals(2)),c:equals(\"3\")),and(c:equals(\"3\"),not(b:equals" +
+            "(2)),not(d:equals(\"4\"))),or(not(d:equals(\"4\")),a:equals(1),c:equals(\"3\")))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "( a = 1 or b != 2 or c = \'3\' ) and ( c = \'3\' and b != 2 and d != \'4\' ) and ( d !=" +
+            " \'4\' or a = 1 or c = \'3\' )")]
+        public virtual void 轉換_N_EQ_Or_N_NQ_Or_S_EQAnd_S_EQ_And_N_NQ_And_S_NQ_And_S_NQ_Or_N_EQ_Or_S_EQ_()
+        {
+            this.轉換("N.EQ. or. N.NQ. or. S.EQ ) and. (S.EQ. and. N.NQ. and. S.NQ. ) and. ( S.NQ. or. N" +
+                    ".EQ. or. S.EQ.)", "and(or(a:equals(1),not(b:equals(2)),c:equals(\"3\")),and(c:equals(\"3\"),not(b:equals" +
+                    "(2)),not(d:equals(\"4\"))),or(not(d:equals(\"4\")),a:equals(1),c:equals(\"3\")))", "( a = 1 or b != 2 or c = \'3\' ) and ( c = \'3\' and b != 2 and d != \'4\' ) and ( d !=" +
+                    " \'4\' or a = 1 or c = \'3\' )", ((string[])(null)));
+        }
     }
 }
 #pragma warning restore
