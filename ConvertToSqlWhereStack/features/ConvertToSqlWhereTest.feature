@@ -37,5 +37,5 @@ Scenario Outline:轉換
 	| N.NE. or. S.NE. or N.EQ.                  | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))       | age != 20 or salary != '22000' or seniority = 2        |
 	| (S.NE. and. N.EQ.) or N.EQ.               | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))       | ( age != '20' and salary = 22000 ) or seniority = 2    |
 	| N.EQ. and. (S.NE. or. S.NE.)              | and(age:equals(20),or(not(salary:equals("22000")),not(seniority:equals("2"))) | age = 20 and ( salary != '22000' or seniority != '2' ) |
-	| (N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.) | or(and(not(b.equal(2)),c.equal("3")),and(not(d.equal("4")),a.equal(1)))       | ( ( b != 2 and c = '3' ) or ( d != '4' and a = 1 ) )   |
+	| (N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.) | or(and(not(b:equals(2)),c:equals("3")),and(not(d:equals("4")),a:equals(1)))   | ( b != 2 and c = '3' ) or ( d != '4' and a = 1 )   |
 	# N:number S:string EQ: equals NE: not equals

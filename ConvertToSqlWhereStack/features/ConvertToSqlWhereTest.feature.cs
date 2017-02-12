@@ -250,11 +250,11 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(and(not(b.equal(2)),c.equal(\"3\")),and(not(d.equal(\"4\")),a.equal(1)))")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "( ( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 ) )")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(and(not(b:equals(2)),c:equals(\"3\")),and(not(d:equals(\"4\")),a:equals(1)))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 )")]
         public virtual void 轉換_N_NE_And_S_EQ_Or_S_NQ_And_N_EQ_()
         {
-            this.轉換("(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)", "or(and(not(b.equal(2)),c.equal(\"3\")),and(not(d.equal(\"4\")),a.equal(1)))", "( ( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 ) )", ((string[])(null)));
+            this.轉換("(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)", "or(and(not(b:equals(2)),c:equals(\"3\")),and(not(d:equals(\"4\")),a:equals(1)))", "( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 )", ((string[])(null)));
         }
     }
 }

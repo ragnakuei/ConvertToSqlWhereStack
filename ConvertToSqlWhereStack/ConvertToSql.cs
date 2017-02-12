@@ -126,10 +126,12 @@ namespace ConvertToSqlWhereStack
                     case "and(":
                         if (level != 0) result.Add("(");
                         Convert(input, result, level + 1, process: '&');
+                        resultItem = string.Empty;
                         break;
                     case "or(":
                         if (level != 0) result.Add("(");
                         Convert(input, result, level + 1, process: '|');
+                        resultItem = string.Empty;
                         break;
                     case "equals(":
                         Convert(input, result, level + 1, process: '=');
