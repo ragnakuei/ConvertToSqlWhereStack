@@ -147,12 +147,5 @@ namespace ConvertToSqlWhereStack
                 #endregion
             }
         }
-
-        private static void AddEqual(Stack<string> fields, StringBuilder result, string operand)
-        {
-            var second = fields.Pop();
-            var first = fields.Pop();
-            result.Append($"{first} {operand} {second}");
-        }
     }
 }
