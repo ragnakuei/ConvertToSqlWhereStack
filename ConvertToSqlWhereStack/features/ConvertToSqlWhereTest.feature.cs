@@ -126,6 +126,18 @@ this.ScenarioSetup(scenarioInfo);
         {
             this.轉換("not equals number", "not(age:equals(20))", "age != 20", ((string[])(null)));
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "not equals string")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "not equals string")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "not(age:equals(\"20\"))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != \'20\'")]
+        public virtual void 轉換_NotEqualsString()
+        {
+            this.轉換("not equals string", "not(age:equals(\"20\"))", "age != \'20\'", ((string[])(null)));
+        }
     }
 }
 #pragma warning restore
