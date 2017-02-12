@@ -11,7 +11,7 @@ namespace ConvertToSqlWhereStack
         {
             var target = new ConvertToSql();
             var input = "age:equals(20)";
-            var expected = "where age = 20";
+            var expected = "age = 20";
 
             var actual = target.Result(input);
 

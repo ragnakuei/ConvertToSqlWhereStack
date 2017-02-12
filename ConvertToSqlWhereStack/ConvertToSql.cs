@@ -40,7 +40,7 @@ namespace ConvertToSqlWhereStack
                         break;
                 }
             }
-            return "where "+result.ToString();
+            return result.ToString();
         }
 
         private Queue<string> ToGroupBy(string input)
