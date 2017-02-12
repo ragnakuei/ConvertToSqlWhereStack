@@ -76,9 +76,9 @@ age:equals(40) // 返回所有age等于40的数据", ProgrammingLanguage.CSharp,
             testRunner.CollectScenarioErrors();
         }
         
-        public virtual void 轉成(string exampleDescription, string input, string output, string[] exampleTags)
+        public virtual void 轉換(string exampleDescription, string input, string output, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("轉成", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("轉換", exampleTags);
 #line 12
 this.ScenarioSetup(scenarioInfo);
 #line 13
@@ -92,27 +92,27 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉成")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "equals number")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "equals number")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "age:equals(20)")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20")]
-        public virtual void 轉成_EqualsNumber()
+        public virtual void 轉換_EqualsNumber()
         {
-            this.轉成("equals number", "age:equals(20)", "age = 20", ((string[])(null)));
+            this.轉換("equals number", "age:equals(20)", "age = 20", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉成")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "equals string")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "equals string")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "age:equals(\"20\")")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = \'20\'")]
-        public virtual void 轉成_EqualsString()
+        public virtual void 轉換_EqualsString()
         {
-            this.轉成("equals string", "age:equals(\"20\")", "age = \'20\'", ((string[])(null)));
+            this.轉換("equals string", "age:equals(\"20\")", "age = \'20\'", ((string[])(null)));
         }
     }
 }

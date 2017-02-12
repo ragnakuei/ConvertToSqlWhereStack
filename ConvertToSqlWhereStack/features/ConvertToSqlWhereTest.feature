@@ -9,7 +9,7 @@
 		name:equals(”adam jones” ) // 返回所有name等于“ adam jones” 的数据
 		age:equals(40) // 返回所有age等于40的数据
 
-Scenario Outline:轉成 
+Scenario Outline:轉換 
 	Given 將輸入的語句 <input>
 	When 進行轉換後
 	Then 得到 sql where 語句 <output>

@@ -45,6 +45,7 @@ namespace ConvertToSqlWhereStack
 
         private Queue<string> ToGroupBy(string input)
         {
+            input = input.Replace("\"", "'");
             char[] inputDelimiters = { ':', '(', ')' };
             var inputByList = input.Split(inputDelimiters);
             var result = new Queue<string>(inputByList);
