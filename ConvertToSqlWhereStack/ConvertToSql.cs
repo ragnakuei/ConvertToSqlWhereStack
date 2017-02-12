@@ -49,21 +49,20 @@ namespace ConvertToSqlWhereStack
                 var next = input.Peek();
                 if (next == ')') 
                 {
-                    
+                    input.Dequeue();
                     switch (process)
                     {
-                        case '(':
-                            input.Dequeue();
+                        case '(':                           
                             if (resultItem != string.Empty) result.Add(resultItem);
                             result.Add(")");
                             break;
+
                         case '!':  // 不等於的處理方式:用修改上一次的等於
                             result[result.Count - 2] = "!=";
                             if (resultItem != string.Empty) result.Add(resultItem);
                             break;
-                        case '=':
-                            input.Dequeue();
 
+                        case '=':
                             var lastResult = result[result.Count-1];
                             if (lastResult[0] == '\'' && lastResult[lastResult.Length-1] == '\'')
                             {   // 如果上一個項目是字串，插入 = 
@@ -74,10 +73,9 @@ namespace ConvertToSqlWhereStack
                                 result.Add("=");
                                 if (resultItem != string.Empty) result.Add(resultItem);
                             }
-
                             break;
+
                         case '&':
-                            input.Dequeue();
                             if (resultItem != string.Empty) result.Add(resultItem);
                             if (level > 1) result.Add(")");
                             break;
