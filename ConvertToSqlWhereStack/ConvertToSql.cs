@@ -38,7 +38,7 @@ namespace ConvertToSqlWhereStack
                 {
                     resultItem += next;
 
-                    if (input.Peek() == '\"')
+                    if (input.Peek() == '\"')     // 配對的 close 單引號
                     {
                         input.Dequeue();
                         result.Add($"'{resultItem}'");
@@ -49,7 +49,7 @@ namespace ConvertToSqlWhereStack
                 }
 
 
-                if (next == ')')
+                if (next == ')')            // close quotation 處理
                 {
                     switch (process)
                     {
@@ -91,35 +91,28 @@ namespace ConvertToSqlWhereStack
 
                 #endregion
 
-                // 抓到配對的第一個單引號處理
-                if (next == '\"')
+                switch (next)
                 {
-                    Convert(input, result, level + 1, process: '\"');
-                    resultItem = string.Empty;
-                    continue;
-                }
-
-                if (next == ',')
-                {
-                    if (process == '&')
-                    {
-                        result.Add("and");
+                    case '\"':       // 配對的 open 單引號
+                        Convert(input, result, level + 1, process: '\"');
                         resultItem = string.Empty;
                         continue;
-                    }
-                    if (process == '|')
-                    {
-                        result.Add("or");
+                    case ',':        // and、or 串接會用到
+                        if (process == '&')
+                        {
+                            result.Add("and");
+                            resultItem = string.Empty;
+                        }
+                        if (process == '|')
+                        {
+                            result.Add("or");
+                            resultItem = string.Empty;
+                        }
+                        continue;
+                    case ':':        // 欄位 delimiter
+                        result.Add(resultItem);
                         resultItem = string.Empty;
                         continue;
-                    }
-                }
-
-                if (next == ':')
-                {
-                    result.Add(resultItem);
-                    resultItem = string.Empty;
-                    continue;
                 }
 
                 #endregion
@@ -128,35 +121,26 @@ namespace ConvertToSqlWhereStack
 
                 #region 加到 item 之後的判斷 
 
-                if (resultItem == "and(")
+                switch (resultItem)    // open quotation 處理
                 {
-                    if (level != 0) result.Add("(");
-                    Convert(input, result, level + 1, process: '&');
-                    resultItem = string.Empty;
-                    continue;
+                    case "and(":
+                        if (level != 0) result.Add("(");
+                        Convert(input, result, level + 1, process: '&');
+                        break;
+                    case "or(":
+                        if (level != 0) result.Add("(");
+                        Convert(input, result, level + 1, process: '|');
+                        break;
+                    case "equals(":
+                        Convert(input, result, level + 1, process: '=');
+                        resultItem = string.Empty;
+                        break;
+                    case "not(":
+                        Convert(input, result, level + 1, process: '!');
+                        resultItem = string.Empty;
+                        break;
                 }
 
-                if (resultItem == "or(")
-                {
-                    if (level != 0) result.Add("(");
-                    Convert(input, result, level + 1, process: '|');
-                    resultItem = string.Empty;
-                    continue;
-                }
-
-                if (resultItem == "equals(")
-                {
-                    Convert(input, result, level + 1, process: '=');
-                    resultItem = string.Empty;
-                    continue;
-                }
-
-                if (resultItem == "not(")
-                {
-                    Convert(input, result, level + 1, process: '!');
-                    resultItem = string.Empty;
-                    continue;
-                }
                 #endregion
             }
         }

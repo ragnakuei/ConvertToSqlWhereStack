@@ -25,16 +25,15 @@ Scenario Outline:轉換
 	Then 得到 sql where 語句 <output>
 	Examples: 
 	| example description                      | input                                                                         | output                                                 |
-	| equals number                            | age:equals(20)                                                                | age = 20                                               |
-	| equals string                            | age:equals("20")                                                              | age = '20'                                             |
-	| not equals number                        | not(age:equals(20))                                                           | age != 20                                              |
-	| not equals string                        | not(age:equals("20"))                                                         | age != '20'                                            |
-	| and equals 2 numbers                     | and(age:equals(20),salary:equals(22000))                                      | age = 20 and salary = 22000                            |
-	| and equals 3 numbers                     | and(age:equals(20),salary:equals(22000),seniority:equals(2))                  | age = 20 and salary = 22000 and seniority = 2          |
+	| number equals                            | age:equals(20)                                                                | age = 20                                               |
+	| string eauals                            | age:equals("20")                                                              | age = '20'                                             |
+	| number not equals                        | not(age:equals(20))                                                           | age != 20                                              |
+	| string not equals                        | not(age:equals("20"))                                                         | age != '20'                                            |
+	| number and number                        | and(age:equals(20),salary:equals(22000))                                      | age = 20 and salary = 22000                            |
+	| number and number and number             | and(age:equals(20),salary:equals(22000),seniority:equals(2))                  | age = 20 and salary = 22000 and seniority = 2          |
 	| and partial not equals 3 numbers         | and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))             | age = 20 and salary != 22000 and seniority = 2         |
 	| and partial not equals 3 string & number | and(not(age:equals("20")),not(salary:equals(22000)),seniority:equals("2"))    | age != '20' and salary != 22000 and seniority = '2'    |
 	| or equals 2 numbers                      | or(age:equals(20),salary:equals(22000))                                       | age = 20 or salary = 22000                             |
 	| or partial not equals 3 string & number  | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))       | age != 20 or salary != '22000' or seniority = 2        |
-	| (string!= and number=) or number=        | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))       | ( age != '20' and salary = 22000 ) or seniority = 2    |
-	| number= and (string!= or number!=)       | and(age:equals(20),or(not(salary:equals("22000")),not(seniority:equals("2"))) | age = 20 and ( salary != '22000' or seniority != '2' ) |
-
+	| string and number or number              | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))       | ( age != '20' and salary = 22000 ) or seniority = 2    |
+	| number and(string or number              | and(age:equals(20),or(not(salary:equals("22000")),not(seniority:equals("2"))) | age = 20 and ( salary != '22000' or seniority != '2' ) |
