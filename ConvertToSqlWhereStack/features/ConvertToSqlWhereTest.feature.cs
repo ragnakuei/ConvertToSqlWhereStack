@@ -104,145 +104,157 @@ this.ScenarioSetup(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number equals")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number equals")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "age:equals(20)")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20")]
-        public virtual void 轉換_NumberEquals()
+        public virtual void 轉換_N_EQ_()
         {
-            this.轉換("number equals", "age:equals(20)", "age = 20", ((string[])(null)));
+            this.轉換("N.EQ.", "age:equals(20)", "age = 20", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "string eauals")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "string eauals")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "S.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "S.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "age:equals(\"20\")")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = \'20\'")]
-        public virtual void 轉換_StringEauals()
+        public virtual void 轉換_S_EQ_()
         {
-            this.轉換("string eauals", "age:equals(\"20\")", "age = \'20\'", ((string[])(null)));
+            this.轉換("S.EQ.", "age:equals(\"20\")", "age = \'20\'", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number not equals")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number not equals")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.NE.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.NE.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "not(age:equals(20))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != 20")]
-        public virtual void 轉換_NumberNotEquals()
+        public virtual void 轉換_N_NE_()
         {
-            this.轉換("number not equals", "not(age:equals(20))", "age != 20", ((string[])(null)));
+            this.轉換("N.NE.", "not(age:equals(20))", "age != 20", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "string not equals")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "string not equals")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "S.NE.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "S.NE.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "not(age:equals(\"20\"))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != \'20\'")]
-        public virtual void 轉換_StringNotEquals()
+        public virtual void 轉換_S_NE_()
         {
-            this.轉換("string not equals", "not(age:equals(\"20\"))", "age != \'20\'", ((string[])(null)));
+            this.轉換("S.NE.", "not(age:equals(\"20\"))", "age != \'20\'", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number and number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number and number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. and. N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. and. N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(age:equals(20),salary:equals(22000))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 and salary = 22000")]
-        public virtual void 轉換_NumberAndNumber()
+        public virtual void 轉換_N_EQ_And_N_EQ_()
         {
-            this.轉換("number and number", "and(age:equals(20),salary:equals(22000))", "age = 20 and salary = 22000", ((string[])(null)));
+            this.轉換("N.EQ. and. N.EQ.", "and(age:equals(20),salary:equals(22000))", "age = 20 and salary = 22000", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number and number and number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number and number and number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. and. N.EQ. and. N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. and. N.EQ. and. N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(age:equals(20),salary:equals(22000),seniority:equals(2))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 and salary = 22000 and seniority = 2")]
-        public virtual void 轉換_NumberAndNumberAndNumber()
+        public virtual void 轉換_N_EQ_And_N_EQ_And_N_EQ_()
         {
-            this.轉換("number and number and number", "and(age:equals(20),salary:equals(22000),seniority:equals(2))", "age = 20 and salary = 22000 and seniority = 2", ((string[])(null)));
+            this.轉換("N.EQ. and. N.EQ. and. N.EQ.", "and(age:equals(20),salary:equals(22000),seniority:equals(2))", "age = 20 and salary = 22000 and seniority = 2", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "and partial not equals 3 numbers")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "and partial not equals 3 numbers")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. and. N.NE. and. N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. and. N.NE. and. N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 and salary != 22000 and seniority = 2")]
-        public virtual void 轉換_AndPartialNotEquals3Numbers()
+        public virtual void 轉換_N_EQ_And_N_NE_And_N_EQ_()
         {
-            this.轉換("and partial not equals 3 numbers", "and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))", "age = 20 and salary != 22000 and seniority = 2", ((string[])(null)));
+            this.轉換("N.EQ. and. N.NE. and. N.EQ.", "and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))", "age = 20 and salary != 22000 and seniority = 2", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "and partial not equals 3 string & number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "and partial not equals 3 string & number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "S.EQ. and. N.NE. and. S.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "S.EQ. and. N.NE. and. S.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(not(age:equals(\"20\")),not(salary:equals(22000)),seniority:equals(\"2\"))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != \'20\' and salary != 22000 and seniority = \'2\'")]
-        public virtual void 轉換_AndPartialNotEquals3StringNumber()
+        public virtual void 轉換_S_EQ_And_N_NE_And_S_EQ_()
         {
-            this.轉換("and partial not equals 3 string & number", "and(not(age:equals(\"20\")),not(salary:equals(22000)),seniority:equals(\"2\"))", "age != \'20\' and salary != 22000 and seniority = \'2\'", ((string[])(null)));
+            this.轉換("S.EQ. and. N.NE. and. S.EQ.", "and(not(age:equals(\"20\")),not(salary:equals(22000)),seniority:equals(\"2\"))", "age != \'20\' and salary != 22000 and seniority = \'2\'", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "or equals 2 numbers")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "or equals 2 numbers")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. or. N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. or. N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(age:equals(20),salary:equals(22000))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 or salary = 22000")]
-        public virtual void 轉換_OrEquals2Numbers()
+        public virtual void 轉換_N_EQ_Or_N_EQ_()
         {
-            this.轉換("or equals 2 numbers", "or(age:equals(20),salary:equals(22000))", "age = 20 or salary = 22000", ((string[])(null)));
+            this.轉換("N.EQ. or. N.EQ.", "or(age:equals(20),salary:equals(22000))", "age = 20 or salary = 22000", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "or partial not equals 3 string & number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "or partial not equals 3 string & number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.NE. or. S.NE. or N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.NE. or. S.NE. or N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(not(age:equals(20)),not(salary:equals(\"22000\")),seniority:equals(2))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != 20 or salary != \'22000\' or seniority = 2")]
-        public virtual void 轉換_OrPartialNotEquals3StringNumber()
+        public virtual void 轉換_N_NE_Or_S_NE_OrN_EQ_()
         {
-            this.轉換("or partial not equals 3 string & number", "or(not(age:equals(20)),not(salary:equals(\"22000\")),seniority:equals(2))", "age != 20 or salary != \'22000\' or seniority = 2", ((string[])(null)));
+            this.轉換("N.NE. or. S.NE. or N.EQ.", "or(not(age:equals(20)),not(salary:equals(\"22000\")),seniority:equals(2))", "age != 20 or salary != \'22000\' or seniority = 2", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "string and number or number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "string and number or number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "(S.NE. and. N.EQ.) or N.EQ.")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "(S.NE. and. N.EQ.) or N.EQ.")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(and(not(age:equals(\"20\")),salary:equals(22000)),seniority:equals(2))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "( age != \'20\' and salary = 22000 ) or seniority = 2")]
-        public virtual void 轉換_StringAndNumberOrNumber()
+        public virtual void 轉換_S_NE_And_N_EQ_OrN_EQ_()
         {
-            this.轉換("string and number or number", "or(and(not(age:equals(\"20\")),salary:equals(22000)),seniority:equals(2))", "( age != \'20\' and salary = 22000 ) or seniority = 2", ((string[])(null)));
+            this.轉換("(S.NE. and. N.EQ.) or N.EQ.", "or(and(not(age:equals(\"20\")),salary:equals(22000)),seniority:equals(2))", "( age != \'20\' and salary = 22000 ) or seniority = 2", ((string[])(null)));
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number and(string or number")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number and(string or number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "N.EQ. and. (S.NE. or. S.NE.)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "N.EQ. and. (S.NE. or. S.NE.)")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(age:equals(20),or(not(salary:equals(\"22000\")),not(seniority:equals(\"2\")))")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 and ( salary != \'22000\' or seniority != \'2\' )")]
-        public virtual void 轉換_NumberAndStringOrNumber()
+        public virtual void 轉換_N_EQ_And_S_NE_Or_S_NE_()
         {
-            this.轉換("number and(string or number", "and(age:equals(20),or(not(salary:equals(\"22000\")),not(seniority:equals(\"2\")))", "age = 20 and ( salary != \'22000\' or seniority != \'2\' )", ((string[])(null)));
+            this.轉換("N.EQ. and. (S.NE. or. S.NE.)", "and(age:equals(20),or(not(salary:equals(\"22000\")),not(seniority:equals(\"2\")))", "age = 20 and ( salary != \'22000\' or seniority != \'2\' )", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(and(not(b.equal(2)),c.equal(\"3\")),and(not(d.equal(\"4\")),a.equal(1)))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "( ( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 ) )")]
+        public virtual void 轉換_N_NE_And_S_EQ_Or_S_NQ_And_N_EQ_()
+        {
+            this.轉換("(N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.)", "or(and(not(b.equal(2)),c.equal(\"3\")),and(not(d.equal(\"4\")),a.equal(1)))", "( ( b != 2 and c = \'3\' ) or ( d != \'4\' and a = 1 ) )", ((string[])(null)));
         }
     }
 }

@@ -24,16 +24,18 @@ Scenario Outline:轉換
 	When 進行轉換後
 	Then 得到 sql where 語句 <output>
 	Examples: 
-	| example description                      | input                                                                         | output                                                 |
-	| number equals                            | age:equals(20)                                                                | age = 20                                               |
-	| string eauals                            | age:equals("20")                                                              | age = '20'                                             |
-	| number not equals                        | not(age:equals(20))                                                           | age != 20                                              |
-	| string not equals                        | not(age:equals("20"))                                                         | age != '20'                                            |
-	| number and number                        | and(age:equals(20),salary:equals(22000))                                      | age = 20 and salary = 22000                            |
-	| number and number and number             | and(age:equals(20),salary:equals(22000),seniority:equals(2))                  | age = 20 and salary = 22000 and seniority = 2          |
-	| and partial not equals 3 numbers         | and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))             | age = 20 and salary != 22000 and seniority = 2         |
-	| and partial not equals 3 string & number | and(not(age:equals("20")),not(salary:equals(22000)),seniority:equals("2"))    | age != '20' and salary != 22000 and seniority = '2'    |
-	| or equals 2 numbers                      | or(age:equals(20),salary:equals(22000))                                       | age = 20 or salary = 22000                             |
-	| or partial not equals 3 string & number  | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))       | age != 20 or salary != '22000' or seniority = 2        |
-	| string and number or number              | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))       | ( age != '20' and salary = 22000 ) or seniority = 2    |
-	| number and(string or number              | and(age:equals(20),or(not(salary:equals("22000")),not(seniority:equals("2"))) | age = 20 and ( salary != '22000' or seniority != '2' ) |
+	| example description                       | input                                                                         | output                                                 |
+	| N.EQ.                                     | age:equals(20)                                                                | age = 20                                               |
+	| S.EQ.                                     | age:equals("20")                                                              | age = '20'                                             |
+	| N.NE.                                     | not(age:equals(20))                                                           | age != 20                                              |
+	| S.NE.                                     | not(age:equals("20"))                                                         | age != '20'                                            |
+	| N.EQ. and. N.EQ.                          | and(age:equals(20),salary:equals(22000))                                      | age = 20 and salary = 22000                            |
+	| N.EQ. and. N.EQ. and. N.EQ.               | and(age:equals(20),salary:equals(22000),seniority:equals(2))                  | age = 20 and salary = 22000 and seniority = 2          |
+	| N.EQ. and. N.NE. and. N.EQ.               | and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))             | age = 20 and salary != 22000 and seniority = 2         |
+	| S.EQ. and. N.NE. and. S.EQ.               | and(not(age:equals("20")),not(salary:equals(22000)),seniority:equals("2"))    | age != '20' and salary != 22000 and seniority = '2'    |
+	| N.EQ. or. N.EQ.                           | or(age:equals(20),salary:equals(22000))                                       | age = 20 or salary = 22000                             |
+	| N.NE. or. S.NE. or N.EQ.                  | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))       | age != 20 or salary != '22000' or seniority = 2        |
+	| (S.NE. and. N.EQ.) or N.EQ.               | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))       | ( age != '20' and salary = 22000 ) or seniority = 2    |
+	| N.EQ. and. (S.NE. or. S.NE.)              | and(age:equals(20),or(not(salary:equals("22000")),not(seniority:equals("2"))) | age = 20 and ( salary != '22000' or seniority != '2' ) |
+	| (N.NE. and. S.EQ.) or. (S.NQ. and. N.EQ.) | or(and(not(b.equal(2)),c.equal("3")),and(not(d.equal("4")),a.equal(1)))       | ( ( b != 2 and c = '3' ) or ( d != '4' and a = 1 ) )   |
+	# N:number S:string EQ: equals NE: not equals
