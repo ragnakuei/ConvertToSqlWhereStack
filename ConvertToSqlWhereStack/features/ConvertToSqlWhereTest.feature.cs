@@ -232,6 +232,18 @@ this.ScenarioSetup(scenarioInfo);
         {
             this.轉換("(string!= and number=) or number=", "or(and(not(age:equals(\"20\")),salary:equals(22000)),seniority:equals(2))", "( age != \'20\' and salary = 22000 ) or seniority = 2", ((string[])(null)));
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "number= and (string!= or number!=)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "number= and (string!= or number!=)")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(age:equals(20),or(not(salary:equals(\"22000\")),not(seniority:equals(\"2\")))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 and ( salary != \'22000\' or seniority != \'2\' )")]
+        public virtual void 轉換_NumberAndStringOrNumber()
+        {
+            this.轉換("number= and (string!= or number!=)", "and(age:equals(20),or(not(salary:equals(\"22000\")),not(seniority:equals(\"2\")))", "age = 20 and ( salary != \'22000\' or seniority != \'2\' )", ((string[])(null)));
+        }
     }
 }
 #pragma warning restore
