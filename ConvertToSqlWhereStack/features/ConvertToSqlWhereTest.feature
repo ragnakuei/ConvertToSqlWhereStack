@@ -34,5 +34,6 @@ Scenario Outline:轉換
 	| and partial not equals 3 numbers         | and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))          | age = 20 and salary != 22000 and seniority = 2      |
 	| and partial not equals 3 string & number | and(not(age:equals("20")),not(salary:equals(22000)),seniority:equals("2")) | age != '20' and salary != 22000 and seniority = '2' |
 	| or equals 2 numbers                      | or(age:equals(20),salary:equals(22000))                                    | age = 20 or salary = 22000                          |
-	| or partial not equals 3 string & number | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))    | age != 20 or salary != '22000' or seniority = 2     |
+	| or partial not equals 3 string & number  | or(not(age:equals(20)),not(salary:equals("22000")),seniority:equals(2))    | age != 20 or salary != '22000' or seniority = 2     |
+	| (string!= and number=) or number=        | or(and(not(age:equals("20")),salary:equals(22000)),seniority:equals(2))    | ( age != '20' and salary = 22000 ) or seniority = 2 |
 
