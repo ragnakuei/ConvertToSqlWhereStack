@@ -9,25 +9,104 @@ namespace ConvertToSqlWhereStack
     {
         public ConvertToSql()
         {
-            _delimitersString = _delimiters.Select(c => c.ToString()).ToList();
         }
 
         internal string Result(string input)
         {
-            var inputGroupBy = ToGroupBy(input);
-            var inputPostfix = InfixToPostfix(inputGroupBy);
+            var inputPerString = new List<string>();
+            ToQueue(new Queue<char>(input.ToCharArray()), inputPerString);
+            var inputPostfix = InfixToPostfix(new Queue<string>(inputPerString));
             var result = PostfixToResult(inputPostfix);
             return result;
         }
 
-        private Queue<string> ToGroupBy(string input)
+        /// <summary>
+        /// 對輸入資料的分組處理，讓轉後序動作更簡單
+        /// </summary>
+        private void ToQueue(Queue<char> input, List<string> result, int level = 0, char? process = null)
         {
-            input = input.Replace("\"", "'");
-            char[] inputDelimiters = { ':', '(', ')' };
-            var inputByList = input.Split(inputDelimiters).ToList();
-            inputByList.RemoveAll(s => s == string.Empty);
-            var result = new Queue<string>(inputByList);
-            return result;
+            var resultItem = string.Empty;
+
+            while (input.Count > 0)
+            {
+                // 加到 item 之前的判斷
+
+
+                #region process 是 Recursive 時的判斷
+
+                // 字串處理，高優先序，不用做多餘的判斷
+                if (process == '\"')
+                {
+                    resultItem += input.Dequeue();
+
+                    if (input.Peek() == '\"')
+                    {
+                        input.Dequeue();
+                        result.Add($"'{resultItem}'");
+                        return;
+                    }
+
+                    continue;
+                }
+
+                if (process == '(' || process == '!')
+                {
+                    // resultItem += input.Dequeue();
+
+                    if (input.Peek() == ')')
+                    {
+                        input.Dequeue();
+                        if (resultItem != string.Empty) result.Add(resultItem);
+                        return;
+                    }
+                }
+
+                #endregion
+
+                if (input.Peek() == '\"')
+                {
+                    input.Dequeue();    // 把第一個 " 先刪掉，之後會在 Recursive 時以 單引號 的方式加入
+                    ToQueue(input, result, level + 1, process: '\"');
+                    resultItem = string.Empty;
+                    continue;
+                }
+
+                if (input.Peek() == ':')
+                {
+                    result.Add(resultItem);
+                    input.Dequeue();
+                    resultItem = string.Empty;
+                    continue;
+                }
+
+                resultItem += input.Dequeue();
+
+                // 加到 item 之後的判斷               
+
+                if (resultItem == "equals(")
+                {
+                    if (process == '!')
+                    {
+                        result.Add("not equals");                      
+                    }
+                    else
+                    {
+                        result.Add("equals");
+                    }
+
+                    
+                    ToQueue(input, result, level + 1, process: '(');
+                    resultItem = string.Empty;
+                    continue;
+                }
+
+                if (resultItem == "not(")
+                {
+                    ToQueue(input, result, level + 1, process: '!');
+                    resultItem = string.Empty;
+                    continue;
+                }
+            }
         }
 
 
@@ -36,28 +115,17 @@ namespace ConvertToSqlWhereStack
             var result = new Queue<string>();
 
             var operand = string.Empty;
-            var notEqual = false;
             while (input.Count > 0)
             {
                 var next = input.Peek();
                 switch (next)
                 {
                     case "equals":
-
-                        if (notEqual)
-                        { operand = "not equals"; }
-                        else
-                        {
-                            operand = "equals";
-                            notEqual = false;
-                        }
-
-                        input.Dequeue();
+                        operand = input.Dequeue();
                         break;
 
-                    case "not":
-                        notEqual = true;
-                        input.Dequeue();
+                    case "not equals":
+                        operand = input.Dequeue();
                         break;
 
                     default:
@@ -108,8 +176,5 @@ namespace ConvertToSqlWhereStack
             var first = fields.Pop();
             result.Append($"{first} {operand} {second}");
         }
-
-        private List<char> _delimiters = new List<char> { ':', '(', ')' };
-        private List<string> _delimitersString = new List<string>();
     }
 }
