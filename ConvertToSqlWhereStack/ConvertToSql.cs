@@ -13,24 +13,22 @@ namespace ConvertToSqlWhereStack
 
         internal string Result(string input)
         {
-            var inputPerString = new List<string>();
-            ToQueue(new Queue<char>(input.ToCharArray()), inputPerString);
-            var inputPostfix = InfixToPostfix(new Queue<string>(inputPerString));
-            var result = PostfixToResult(inputPostfix);
+            var inputPostfix = new List<string>();
+            ToPostFix(new Queue<char>(input.ToCharArray()), inputPostfix);
+            var result = PostfixToResult(new Queue<string>(inputPostfix));
             return result;
         }
 
         /// <summary>
         /// 對輸入資料的分組處理，讓轉後序動作更簡單
         /// </summary>
-        private void ToQueue(Queue<char> input, List<string> result, int level = 0, char? process = null)
+        private void ToPostFix(Queue<char> input, List<string> result, int level = 0, char? process = null)
         {
             var resultItem = string.Empty;
 
             while (input.Count > 0)
             {
                 // 加到 item 之前的判斷
-
 
                 #region process 是 Recursive 時的判斷
 
@@ -49,29 +47,48 @@ namespace ConvertToSqlWhereStack
                     continue;
                 }
 
-                if (process == '(' || process == '!')
-                {
-                    // resultItem += input.Dequeue();
-
-                    if (input.Peek() == ')')
+                var next = input.Peek();
+                if (next == ')') 
+                {   // 先放值再放 operand ，就會變成後置
+                    if (resultItem != string.Empty) result.Add(resultItem);
+                    switch (process)
                     {
-                        input.Dequeue();
-                        if (resultItem != string.Empty) result.Add(resultItem);
-                        return;
-                    }
+                        case '(':
+                            input.Dequeue();
+                            break;
+                        case '!':
+                            var lastEqualsIndex = result.FindLastIndex( r => r == "equals");
+                            result[lastEqualsIndex] = "not equals";
+                            break;
+                        case '=':
+                            result.Add("equals");
+                            break;
+                        case '&':
+                            result.Add("and");
+                            break;
+                    }                   
+                    return;
                 }
 
                 #endregion
 
-                if (input.Peek() == '\"')
+                if (next == '\"')
                 {
                     input.Dequeue();    // 把第一個 " 先刪掉，之後會在 Recursive 時以 單引號 的方式加入
-                    ToQueue(input, result, level + 1, process: '\"');
+                    ToPostFix(input, result, level + 1, process: '\"');
                     resultItem = string.Empty;
                     continue;
                 }
 
-                if (input.Peek() == ':')
+                if (next == ',')
+                {
+                    input.Dequeue();    // 把第一個 " 先刪掉，之後會在 Recursive 時以 單引號 的方式加入
+                    ToPostFix(input, result, level + 1, process: '\"');
+                    resultItem = string.Empty;
+                    continue;
+                }
+
+                if (next == ':')
                 {
                     result.Add(resultItem);
                     input.Dequeue();
@@ -83,62 +100,27 @@ namespace ConvertToSqlWhereStack
 
                 // 加到 item 之後的判斷               
 
-                if (resultItem == "equals(")
+                if (resultItem == "and(")
                 {
-                    if (process == '!')
-                    {
-                        result.Add("not equals");                      
-                    }
-                    else
-                    {
-                        result.Add("equals");
-                    }
+                    ToPostFix(input, result, level + 1, process: '&');
+                    resultItem = string.Empty;
+                    continue;
+                }
 
-                    
-                    ToQueue(input, result, level + 1, process: '(');
+                if (resultItem == "equals(")
+                {                   
+                    ToPostFix(input, result, level + 1, process: '=');
                     resultItem = string.Empty;
                     continue;
                 }
 
                 if (resultItem == "not(")
                 {
-                    ToQueue(input, result, level + 1, process: '!');
+                    ToPostFix(input, result, level + 1, process: '!');
                     resultItem = string.Empty;
                     continue;
                 }
             }
-        }
-
-
-        private Queue<string> InfixToPostfix(Queue<string> input)
-        {
-            var result = new Queue<string>();
-
-            var operand = string.Empty;
-            while (input.Count > 0)
-            {
-                var next = input.Peek();
-                switch (next)
-                {
-                    case "equals":
-                        operand = input.Dequeue();
-                        break;
-
-                    case "not equals":
-                        operand = input.Dequeue();
-                        break;
-
-                    default:
-                        if (next != string.Empty)
-                            result.Enqueue(input.Dequeue());
-                        else
-                            input.Dequeue();
-                        break;
-                }
-            }
-            result.Enqueue(operand);
-
-            return result;
         }
 
         private string PostfixToResult(Queue<string> inputPostfix)
