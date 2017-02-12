@@ -19,7 +19,7 @@ namespace ConvertToSqlWhereStack
         }
 
         /// <summary>
-        /// 對輸入資料的分組處理，讓轉後序動作更簡單
+        /// 對輸入的資料進行轉換 & 分組
         /// </summary>
         private void Convert(Queue<char> input, List<string> result, int level = 0, char? process = null)
         {
@@ -53,10 +53,11 @@ namespace ConvertToSqlWhereStack
                 {
                     switch (process)
                     {
-                        case '(':
-                            if (resultItem != string.Empty) result.Add(resultItem);
-                            result.Add(")");
-                            break;
+                        // 可以搭配任意的 ( ) 來使用，不過 open quotation 處理未實作
+                        //case '(':
+                        //    if (resultItem != string.Empty) result.Add(resultItem);
+                        //    result.Add(")");
+                        //    break;
 
                         case '!':  // 不等於的處理方式:用修改上一次的等於
                             result[result.Count - 2] = "!=";
