@@ -79,6 +79,11 @@ namespace ConvertToSqlWhereStack
                             if (resultItem != string.Empty) result.Add(resultItem);
                             if (level > 1) result.Add(")");
                             break;
+
+                        case '|':
+                            if (resultItem != string.Empty) result.Add(resultItem);
+                            if (level > 1) result.Add(")");
+                            break;
                     }                   
                     return;
                 }
@@ -93,13 +98,24 @@ namespace ConvertToSqlWhereStack
                     continue;
                 }
 
-                if (next == ',' && process == '&')
+                if (next == ',' )
                 {
-                    input.Dequeue();    // 把 , 先刪掉
-                    //result.Add(resultItem);
-                    result.Add("and");
-                    resultItem = string.Empty;
-                    continue;
+                    if(process == '&')
+                    {
+                        input.Dequeue();    // 把 , 先刪掉
+                                            //result.Add(resultItem);
+                        result.Add("and");
+                        resultItem = string.Empty;
+                        continue;
+                    }
+                    if(process == '|')
+                    {
+                        input.Dequeue();    // 把 , 先刪掉
+                                            //result.Add(resultItem);
+                        result.Add("or");
+                        resultItem = string.Empty;
+                        continue;
+                    }
                 }
 
                 if (next == ':')
@@ -118,6 +134,14 @@ namespace ConvertToSqlWhereStack
                 {
                     if(level != 0) result.Add("(");
                     Convert(input, result, level + 1, process: '&');
+                    resultItem = string.Empty;
+                    continue;
+                }
+
+                if (resultItem == "or(")
+                {
+                    if (level != 0) result.Add("(");
+                    Convert(input, result, level + 1, process: '|');
                     resultItem = string.Empty;
                     continue;
                 }

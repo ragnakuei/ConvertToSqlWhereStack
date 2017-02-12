@@ -184,6 +184,30 @@ this.ScenarioSetup(scenarioInfo);
         {
             this.轉換("and partial not equals 3 numbers", "and(age:equals(20),not(salary:equals(22000)),seniority:equals(2))", "age = 20 and salary != 22000 and seniority = 2", ((string[])(null)));
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "and partial not equals 3 string & number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "and partial not equals 3 string & number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "and(not(age:equals(\"20\")),not(salary:equals(22000)),seniority:equals(\"2\"))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age != \'20\' and salary != 22000 and seniority = \'2\'")]
+        public virtual void 轉換_AndPartialNotEquals3StringNumber()
+        {
+            this.轉換("and partial not equals 3 string & number", "and(not(age:equals(\"20\")),not(salary:equals(22000)),seniority:equals(\"2\"))", "age != \'20\' and salary != 22000 and seniority = \'2\'", ((string[])(null)));
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("轉換")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ConvertToSqlWhereTest")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("VariantName", "or equals 2 numbers")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:example description", "or equals 2 numbers")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:input", "or(age:equals(20),salary:equals(22000))")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("Parameter:output", "age = 20 or salary = 22000")]
+        public virtual void 轉換_OrEquals2Numbers()
+        {
+            this.轉換("or equals 2 numbers", "or(age:equals(20),salary:equals(22000))", "age = 20 or salary = 22000", ((string[])(null)));
+        }
     }
 }
 #pragma warning restore
