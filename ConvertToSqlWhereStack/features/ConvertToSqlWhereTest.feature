@@ -14,6 +14,7 @@ Scenario Outline:轉成
 	When 進行轉換後
 	Then 得到 sql where 語句 <output>
 	Examples: 
-	| example description | input          | output   |
-	| equals_number       | age:equals(20) | age = 20 |
+	| example description | input            | output     |
+	| equals number       | age:equals(20)   | age = 20   |
+	| equals string       | age:equals("20") | age = '20' |
 
