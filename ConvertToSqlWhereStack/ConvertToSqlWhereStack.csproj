@@ -51,7 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ConvertToSql.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ConvertToSqlWhereTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Choose>
