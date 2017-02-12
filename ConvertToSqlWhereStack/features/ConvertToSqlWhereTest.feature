@@ -24,11 +24,12 @@ Scenario Outline:轉換
 	When 進行轉換後
 	Then 得到 sql where 語句 <output>
 	Examples: 
-	| example description  | input                                                        | output                                        |
-	| equals number        | age:equals(20)                                               | age = 20                                      |
-	| equals string        | age:equals("20")                                             | age = '20'                                    |
-	| not equals number    | not(age:equals(20))                                          | age != 20                                     |
-	| not equals string    | not(age:equals("20"))                                        | age != '20'                                   |
-	| and equals 2 numbers | and(age:equals(20),salary:equals(22000))                     | age = 20 and salary = 22000                   |
-	| and equals 3 numbers | and(age:equals(20),salary:equals(22000),seniority:equals(2)) | age = 20 and salary = 22000 and seniority = 2 |
+	| example description              | input                                                             | output                                         |
+	| equals number                    | age:equals(20)                                                    | age = 20                                       |
+	| equals string                    | age:equals("20")                                                  | age = '20'                                     |
+	| not equals number                | not(age:equals(20))                                               | age != 20                                      |
+	| not equals string                | not(age:equals("20"))                                             | age != '20'                                    |
+	| and equals 2 numbers             | and(age:equals(20),salary:equals(22000))                          | age = 20 and salary = 22000                    |
+	| and equals 3 numbers             | and(age:equals(20),salary:equals(22000),seniority:equals(2))      | age = 20 and salary = 22000 and seniority = 2  |
+	| and partial not equals 3 numbers | and(age:equals(20),not(salary:equals(22000)),seniority:equals(2)) | age = 20 and salary != 22000 and seniority = 2 |
 
