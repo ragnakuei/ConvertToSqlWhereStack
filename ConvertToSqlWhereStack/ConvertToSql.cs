@@ -15,7 +15,7 @@ namespace ConvertToSqlWhereStack
         {
             var result = new List<string>();
             Convert(new Queue<char>(input.ToCharArray()), result);
-            return string.Join(" ",result);
+            return string.Join(" ", result);
         }
 
         /// <summary>
@@ -27,14 +27,16 @@ namespace ConvertToSqlWhereStack
 
             while (input.Count > 0)
             {
-                // 加到 item 之前的判斷
+                var next = input.Dequeue();
+
+                #region  加到 item 之前的判斷
 
                 #region process 是 Recursive 時的判斷
 
                 // 字串處理，高優先序，不用做多餘的判斷
                 if (process == '\"')
                 {
-                    resultItem += input.Dequeue();
+                    resultItem += next;
 
                     if (input.Peek() == '\"')
                     {
@@ -46,13 +48,12 @@ namespace ConvertToSqlWhereStack
                     continue;
                 }
 
-                var next = input.Peek();
-                if (next == ')') 
+
+                if (next == ')')
                 {
-                    input.Dequeue();
                     switch (process)
                     {
-                        case '(':                           
+                        case '(':
                             if (resultItem != string.Empty) result.Add(resultItem);
                             result.Add(")");
                             break;
@@ -63,10 +64,10 @@ namespace ConvertToSqlWhereStack
                             break;
 
                         case '=':
-                            var lastResult = result[result.Count-1];
-                            if (lastResult[0] == '\'' && lastResult[lastResult.Length-1] == '\'')
+                            var lastResult = result[result.Count - 1];
+                            if (lastResult[0] == '\'' && lastResult[lastResult.Length - 1] == '\'')
                             {   // 如果上一個項目是字串，插入 = 
-                                result.Insert(result.Count-1,"=");
+                                result.Insert(result.Count - 1, "=");
                             }
                             else
                             {   // 如果上一個項目是不是字串 
@@ -84,34 +85,30 @@ namespace ConvertToSqlWhereStack
                             if (resultItem != string.Empty) result.Add(resultItem);
                             if (level > 1) result.Add(")");
                             break;
-                    }                   
+                    }
                     return;
                 }
 
                 #endregion
 
+                // 抓到配對的第一個單引號處理
                 if (next == '\"')
                 {
-                    input.Dequeue();    // 把 " 先刪掉
                     Convert(input, result, level + 1, process: '\"');
                     resultItem = string.Empty;
                     continue;
                 }
 
-                if (next == ',' )
+                if (next == ',')
                 {
-                    if(process == '&')
+                    if (process == '&')
                     {
-                        input.Dequeue();    // 把 , 先刪掉
-                                            //result.Add(resultItem);
                         result.Add("and");
                         resultItem = string.Empty;
                         continue;
                     }
-                    if(process == '|')
+                    if (process == '|')
                     {
-                        input.Dequeue();    // 把 , 先刪掉
-                                            //result.Add(resultItem);
                         result.Add("or");
                         resultItem = string.Empty;
                         continue;
@@ -120,19 +117,20 @@ namespace ConvertToSqlWhereStack
 
                 if (next == ':')
                 {
-                    input.Dequeue();    // 把 : 先刪掉
                     result.Add(resultItem);
                     resultItem = string.Empty;
                     continue;
                 }
 
-                resultItem += input.Dequeue();
+                #endregion
 
-                // 加到 item 之後的判斷               
+                resultItem += next;
+
+                #region 加到 item 之後的判斷 
 
                 if (resultItem == "and(")
                 {
-                    if(level != 0) result.Add("(");
+                    if (level != 0) result.Add("(");
                     Convert(input, result, level + 1, process: '&');
                     resultItem = string.Empty;
                     continue;
@@ -147,7 +145,7 @@ namespace ConvertToSqlWhereStack
                 }
 
                 if (resultItem == "equals(")
-                {                   
+                {
                     Convert(input, result, level + 1, process: '=');
                     resultItem = string.Empty;
                     continue;
@@ -159,6 +157,7 @@ namespace ConvertToSqlWhereStack
                     resultItem = string.Empty;
                     continue;
                 }
+                #endregion
             }
         }
 
